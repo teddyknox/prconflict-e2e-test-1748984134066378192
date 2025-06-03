@@ -1,5 +1,13 @@
 package utils
 
-func HashPassword(password string) string {
-	return password
+import (
+	"crypto/bcrypt"
+)
+
+func HashPassword(password string) (string, error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hash), nil
 }
